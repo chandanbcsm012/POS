@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}POS| Update Product{% endblock %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Product Type List" "product-type" %}
+{% breadcrumb "Product Type Update" "update-product-type" %}
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js\custom\product.js'%} "></script>
+  {% endblock %}
+{% block content %}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title"> Product Type</h4>
+                        <p class="card-category">Complete your product type.</p>
+                    </div>
+                    <div class="card-body">
+                        <form class="needs-validation" novalidate autocomplete="off" method="POST"
+                            enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% include 'form.html' with form=form %}      
+                            <a href="{% url 'product-type' %}" class="btn btn-white text-rose pull-left">Back</a>                  
+                            <button  type="submit" class="btn btn-primary pull-right"
+                                >Save</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

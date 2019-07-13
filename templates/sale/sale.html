@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Product Type" "sale" %}
+{% endblock %}
+{% block csscontent%}
+<link rel="stylesheet" href="{% static 'css/datatable.custom.css' %}">
+{% endblock %}
+{% block javascript %}
+<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+<script src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        //datatabes js
+        $('#table_id').DataTable({
+
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            // responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+    });
+</script>
+{% endblock %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Purchase List" "purchase_list" %}
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{message.tags}}!</strong>{{message}}
+                    <button type="button" class="close" purchase-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% else %}
+                <div class="alert alert-{{message.tags}} alert-dismissible fade show">
+                    <strong>{{message.tags}}!</strong>
+                    {{message}}
+                    <button type="button" class="close" purchase-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <div class="row">
+                            <div class="col-10">
+                                <a type="button" class="btn btn-white btn-round font-weight-bold text-primary"
+                                href="{% url 'purchase_add' %}" >
+                                    <i class="material-icons">add_circle</i>purchase</a>
+                            </div>
+                            <div class="col-2 justify-content-end">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="table_id" class="table table-hover">
+                                <thead class=" text-primary">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        referance_no
+                                    </th>
+                                    
+                                    <th>
+                                        date
+                                    </th>
+                                   
+                                    <th>
+                                        total
+                                    </th>
+                                    <th>
+                                            Paid Amount
+                                    </th>
+                                    <th class="text-right">Actions</th>
+                                </thead>
+                                <tbody>
+                                    {% for p in payment %}
+                                    <tr>
+                                        <td>
+                                            {{p.sale.customer}}
+                                        </td>
+                                        <td>
+                                            {{p.payment_date_time}}
+                                        </td>
+                                        <td>
+                                            {{p.sale.sale_date}}
+                                        </td>
+                                        <td class="text-primary">
+                                            {{p.sale.total_purchase_amount}}
+                                        </td>
+                                        <td>
+                                            {{p.sale.paid_amount}}
+                                        </td>
+                                        <td class="td-actions text-right">
+                                          
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

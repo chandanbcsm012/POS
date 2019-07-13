@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group"><label for="{{form.name.id_for_label}}">Product Name * </label>
+            {{form.name}} 
+            <span>{{form.name.errors}}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group"><label for="{{form.type.id_for_label}}">Product Type *</label>
+            {{form.type}}
+            <span>{{form.type.errors}}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group"><label for="{{form.code.id_for_label}}">Product Code:</label>
+            {{form.code}}
+            <span>{{form.code.errors}}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group"><label for="{{form.brand.id_for_label}}">Band Name *</label>
+            {{form.brand}}
+            <span>{{form.brand.errors}}</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="{{form.category.id_for_label}}">Product Category *</label>
+            {{form.category}}
+            <span>{{form.category.errors}}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="{{form.price.id_for_label}}">Price *</label>
+            {{form.price}}
+            <span>{{form.price.errors}}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="{{form.cost.id_for_label}}">Cost *</label>
+            {{form.cost}}
+            <span>{{form.cost.errors}}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="{{form.tax_method.id_for_label}}">Tax Method *</label>
+            {{form.tax_method}}
+            <span>{{form.tax_method.errors}}</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="{{form.quantity.id_for_label}}">Quantity*</label>
+            {{form.quantity}}
+            <span>{{form.quantity.errors}}</span></div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="{{form.alert_quantity.id}}">Alert Quantity*:</label>
+            {{form.alert_quantity}}
+            <span>{{form.alert_quantity.errors}}</span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group"><label for="{{form.image.id_for_label}}">Product Image:</label>
+            <div class="form-group form-file-upload form-file-multiple">
+                    {{form.image}}
+                    <div class="input-group">
+                        <input type="text" class="form-control inputFileVisible" placeholder="Single File">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-fab btn-round btn-primary btn-image">
+                                <i class="material-icons">attach_file</i>
+                            </button>
+                        </span>
+                    </div>
+                  </div>
+        </div>
+    </div>
+ 
+</div>
+<div class="row">
+        <div class="col-md-12">
+                <div class="form-group"><label for="{{form.description.id_for_label}}">Description:</label>
+                    {{form.description}}
+                    <span>{{form.description.errors}}</span>
+                </div>
+            </div>
+</div>

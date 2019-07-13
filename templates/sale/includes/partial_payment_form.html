@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="">Amount*</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                  <i class="material-icons">money</i>
+              </span>
+            </div>
+            <input type="number" class="" name="paid_amount" id="id_paid_amount">
+          </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="">Payment Method:*</label>
+        <select name="PaymentMethod" id="payemntMethod" class="">
+          <option value="cash">Cash</option>
+          <option value="cheque">Cheque</option>
+          <option value="bank">Bank Transfer</option>
+          <option value="card">Card</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row card-control d-none">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Card Number:</label>
+        <input type="number" id="id_card_no" class="">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Card Holder name:</label>
+        <input type="text" id="id_card_holder_name" class="">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Card Transaction No.</label>
+        <input type="text" id="id_card_transaction_no" class="">
+      </div>
+    </div>
+  </div>
+
+  <div class="row card-control d-none">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="">Card Type:</label>
+        <select name="card_type" id="id_card_type">
+            <option value="">Please select</option>
+          <option value="creditCard">Credit Card</option>
+          <option value="debitCard">Debit Card</option>
+          <option value="masterCard">Master Card</option>
+          <option value="VisaCard">Visa Card</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="">Month:</label>
+        <input type="number" name="card_month" id="id_card_month" min="1" max="12">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="">Year:</label>
+        <input type="number" name="card_year" id="id_card_year" min="2019">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="">Security Code:</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                  <i class="material-icons">fiber_pin</i>
+              </span>
+            </div>
+            <input type="number" name="card_cvv_code" id="id_card_security_code">
+          </div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="row cheque-control d-none">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="">Cheque No.</label>
+        <input type="number" name="cheque_no" id="id_cheque" placeholder="Cheque No.">
+      </div>
+    </div>
+  </div>
+  <div class="row bank-control d-none">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="">Bank Account No.</label>
+        <input type="number" name="bank_account_no" id="id_bank_account_no" placeholder="Bank Account No.">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label>Payemnt note:</label>
+        <textarea name="payment_note" class="" id="id_payment_note" cols="30" rows="2"></textarea>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,104 @@
+<div class="modal-header">
+    <h5 class="modal-title card-title">Add Purchase Payment</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <i class="material-icons">clear</i>
+    </button>
+</div>
+<div class="modal-body">
+    <form action="{% url 'add_payment' purchase.id %}" method="POST" id="purchasePaymentFOrm">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group"><label for="">Amount:*</label>
+                    <div class="d-none">
+                    {{form.purchase}}
+                    </div>
+                    {{form.paid_amount}}
+                    <span class="text-danger">{{form.paid_amount.errors}}</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="">Payment Method:*</label>
+                    {{form.payemnt_method}}
+                    <span class="text-danger">{{form.payemnt_method.errors}}</span></div>
+            </div>
+            <div class="col-md-3"><div class="form-group"><label for="">Due Amount:</label>{{form.due_amount}}<span
+                class="text-danger">{{form.due_amount.errors}}</span></div></div>
+            <div class="col-md-3">
+                <label for="">Payment Status:</label>
+                {{form.payment_status}}
+            </div>
+        </div>
+        <div class="row pcard d-none">
+            <div class="col-md-3">
+                <div class="form-group"><label for="">Card No:</label>
+                    {{form.card_no}}
+                    <span class="text-danger">{{form.card_no.errors}}</span></div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group"><label for="">Card Holder Name:</label>
+                    {{form.card_holder_name}}
+                    <span class="text-danger">{{form.card_holder_name.errors}}</span></div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group"><label for="">Card Transaction No:</label>
+                    {{form.card_transaction_no}}
+                    <span class="text-danger">{{form.card_transaction_no.errors}}</span></div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group"><label for="">Card Type:</label>
+                    {{form.cad_type}}
+                    <span class="text-danger">{{form.cad_type.errors}}</span></div>
+            </div>
+        </div>
+        <div class="row pcard d-none">
+            <div class="col-md-2">
+                <div class="form-group"><label for="">Month:</label>
+                    {{form.card_month}}
+                    <span class="text-danger">{{form.card_month.errors}}</span></div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group"><label for="">Year:</label>
+                    {{form.card_year}}
+                    <span class="text-danger">{{form.card_year.errors}}</span></div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group"><label for="">CVV:</label>
+                    {{form.cvv}}
+                    <span class="text-danger">{{form.cvv.errors}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row pcheque d-none">
+
+            <div class="col-md-12">
+                <div class="form-group"><label for="">Cheque No:</label>{{form.cheque_no}}<span
+                        class="text-danger">{{form.cheque_no.errors}}</span></div>
+            </div>
+
+        </div>
+        <div class="row pbank d-none">
+            <div class="col-md-12">
+                <div class="form-group"><label for="">Bank Account:</label>
+                    {{form.bank_account}}
+                    <span class="text-danger">{{form.bank_account.errors}}</span></div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group"><label for="">Payment Note:</label>
+                    {{form.payment_note}}
+                    <span class="text-danger">{{form.payment_note.errors}}</span></div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                <i class="material-icons">clear</i> Close
+            </button>
+    <button type="submit"  form="purchasePaymentFOrm" class="btn btn-primary ml-auto">Save</button>
+</div>

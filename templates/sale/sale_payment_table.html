@@ -1,0 +1,24 @@
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="table-primary">
+            <tr class="">
+                <th>#</th>
+                <th>Date Time</th>
+                <th>Amount</th>
+                <th>Payment mode</th>
+                <th>Payment note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pay in payments %}
+            <tr>
+                    <td></td>
+                <td>{{pay.payment_date_time}}</td>
+                <td>{{pay.paid_amount}}</td>
+                <td>{{pay.payemnt_method}}</td>
+                <td>{{pay.payment_note}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

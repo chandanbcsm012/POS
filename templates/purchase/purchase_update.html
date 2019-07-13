@@ -1,0 +1,313 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}POS| Update purchase{% endblock %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Update purchase" "purchase_update" %}
+{% endblock %}
+{% block csscontent %}
+<!-- jquery ui css -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- Latest compiled and minified CSS -->
+
+<style>
+  input.file {
+    opacity: 0;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .purchase_input {
+    width: 90%;
+    border: 0px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .purchase_input:hover {
+    width: 90%;
+    border: 2px solid gainsboro;
+    text-align: right;
+  }
+
+  .product_amount {
+    font-weight: bold;
+  }
+</style>
+{% endblock%}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div id="accordion" role="tablist">
+              <div class="card card-collapse">
+                <div class="card-header card-header-icon card-header-rose" role="tab" id="purchaseOne">
+                  <div class="card-icon">
+                    <i class="material-icons">language</i>
+                  </div>
+                  <h5>
+                    <a data-toggle="collapse" class="btn btn-rose btn-link font-weight-bold" href="#purchaseCollapseOne"
+                      aria-expanded="true" aria-controls="collapseOne">
+                      Purchase Basic Details
+                      
+                    </a>
+                  </h5>
+                </div>
+                <div id="purchaseCollapseOne" class="collapse show" role="tabpanel" aria-labelledby="purchaseOne"
+                  data-parent="#accordion">
+                  <div class="card-body">
+                    {% csrf_token %}
+                    <input type="hidden" name="purchase_id" id="purchase_id" value="{{purchase.id}}">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="{{form.supplier.id_for_label}}">Supplier:*</label>
+                          {{form.supplier}}
+                          {{form.supplier.errors}}
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          {{form.referance_no.label_tag}}
+                          {{form.referance_no}}
+                          {{form.referance_no.errors}}
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="{{form.date.id_for_label}}">Date:*</label>
+                          {{form.date}}
+                          {{form.date.errors}}
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="{{form.status.id_for_label}}">Purchase Status:*</label>
+                          {{form.purchase_status}}
+                          {{form.purchase_status.errors}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="{{form.location.id_for_label}}">Business Location:*</label>
+                          {{form.location}}
+                          {{form.location.errors}}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <form method="post" id="purchaseForm" enctype="multipart/form-data">
+                          {{form.document.label_tag}}
+                          <div class="form-group form-file-upload form-file-multiple">
+                            {{form.document}}
+                            <div class="input-group">
+                              <input type="text" id="id_file_input_control" class="inputFileVisible"
+                                placeholder="Choose file">
+                              <span class="input-group-btn">
+                                <button id="id_file_input_button" type="button" class="btn btn-fab btn-round btn-primary">
+                                  <i class="material-icons">attach_file</i>
+                                </button>
+                              </span>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+      
+                    <div class="col-md-3"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+              </div>
+            </div>
+            <div class="card card-collapse">
+              <div class="card-header card-header-icon card-header-info" role="tab" id="purchaseTow">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="card-icon">
+                      <i class="material-icons">language</i>
+                    </div>
+                    <h5>
+                      <a data-toggle="collapse" class="btn btn-info btn-link font-weight-bold" href="#purchaseCollapseTow"
+                        aria-expanded="true" aria-controls="purchaseTow">
+                        Add Purchase Products
+                      </a>
+                    </h5>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-inline ml-auto float-right ">
+                      <div class="form-group no-border">
+                        <input type="search" id="id_product_search_control" class="text-black" placeholder="Search Product">
+                      </div>
+                      <button type="button" id="id_product_search_button"
+                        class="btn btn-white btn-fab btn-fab-mini btn-round">
+                        <i class="material-icons" id="id_search_icon">search</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="purchaseCollapseTow" class="collapse" role="tabpanel" aria-labelledby="purchaseTow"
+                data-parent="#accordion">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table id="id_purchase_product_table" class="table  table-hover">
+                      <thead>
+                        <tr>
+                          <th class="text-center">Image</th>
+                          <th class="text-center">Product</th>
+                          <th class="text-center">Unit Cost</th>
+                          <th class="text-center">Qty</th>
+                          <th class="text-center">Unit Selling Price</th>
+                          <th class="text-center">Amount</th>
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbl_body">
+                          {% for p in products %}
+                          <tr class="purchase_row">
+                                <input type="hidden" name="id" class="product-id" value="{{p.product.id}}">
+                                <td class="text-center"> 
+                                  <div class="img-container rounded">
+                                    <img src="{{p.product.image.url}}" alt="product image" height="50">
+                                  </div>
+                                </td>
+                                <td class="td_prduct_name font-weight-bold">
+                                   {{p.name}}
+                                </td>
+                                <td class="td_unit_cost text-center">
+                                  
+                                  <input type="number" rel="tooltip" data-placement="left" title="Enter product unit price" class="col-8 purchase_unit_cost purchase_input" min="1" value="{{p.unit_cost}}">
+                                
+                                </td>
+                                <td class="td_quantity text-center">
+                                  <input type="number" rel="tooltip" data-placement="left" title="Enter product quantity" class="col-5 purchase_product_quantity purchase_input" min="1" value="{{p.quantity}}">
+                                </td>
+                                <td class="td_unit_price text-center">
+                                  <input type="number" rel="tooltip" data-placement="left" title="Enter product unit price" class="col-8 purchase_unit_price purchase_input" min="1" value="{{p.unit_seleing_price}}">
+                                </td>
+                                <td class="td_product_amount text-center">
+                                <span class="product_amount text-primary font-weight-bold"> {{p.total_cost}} </span> 
+                                </td>
+                                <td class="td-actions text-center">
+                                  <button type="button" rel="tooltip" data-placement="left" title="Remove product" class="btn btn-link btn-danger remove_btn">
+                                  <i class="material-icons">close</i>
+                                  </button>
+                                </td>
+                              </tr>
+                          {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <h4 class="ml-auto font-weight-bold">
+                  Total: Rs. <span id="table_total_amount">{{purchase.net_amount}}</span>
+                </h4>
+              </div>
+            </div>
+            <div class="card card-collapse">
+              <div class="card-header card-header-icon card-header-primary" role="tab" id="purchaseThree">
+                <div class="card-icon">
+                  <i class="material-icons">language</i>
+                </div>
+                <h5>
+                  <a data-toggle="collapse" class="btn btn-primary btn-link font-weight-bold" href="#purchaseCollapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    Purchase Details
+                  </a>
+                </h5>
+              </div>
+              <div id="purchaseCollapseThree" class="collapse" role="tabpanel" aria-labelledby="purchaseThree"
+                data-parent="#accordion">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        {{form.discount_type.label_tag}}
+                        {{form.discount_type}}
+                        {{form.discount_type.errors}}
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        {{form.discount.label_tag}}
+                        {{form.discount}}
+                        {{form.discount.errors}}
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3 text-right">
+                      <label>Discount Amount: <strong id="total_discount_amount">{{purchase.discount}}</strong></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        {{form.tax.label_tag}}
+                        {{form.tax}}
+                        {{form.errors}}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <p id="purchaseTaxDetails" class="text-right">
+                        {%for tax in tax_details %}
+                            <h6 class="tax-details">{{tax}}</h6>
+                        {% endfor %}
+                      </p>
+                    </div>
+                    <div class="col-md-3 text-right">
+                      <label> Purchase Tax:</label>
+                      <label><strong id="purchaseTax">{{purchase.tax_total}}</strong></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        {{form.shipping_details.label_tag}}
+                        {{form.shipping_details}}
+                        {{form.shipping_details.errors}}
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        {{form.shipping_charges.label_tag}}
+                        {{form.shipping_charges}}
+                        {{form.shipping_charges.errors}}
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{form.additional.id_for_label}}">Addition charge:</label>
+                        {{form.additional}}
+                        {{form.additional.errors}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer card-footer-primary">
+                  <button class="btn btn-white text-rose" onclick="window.history.back();">Back</button>
+                  <button class="btn btn-primary mx-auto" id="update_btn">Save</button>
+                <h4 class="ml-auto font-weight-bold"><label>Purchase Total: <strong
+                      id="grand_total_amount">{{purchase.total_purchase_amount}}</strong></label></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+{% block javascript %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{% static 'js/custom/purchase_form.js'%}"></script>
+{% endblock %}

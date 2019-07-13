@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Product List" "product" %}
+{% breadcrumb "Product Delete" "delete-product" %}
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header  card-header-icon card-header-text card-header-rose">
+                    <div class="card-text">
+
+                      <h4 class="card-title">
+                          
+                            <i class="material-icons">delete</i>Product</h4>
+                      
+                    </div>
+                    
+                  </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form method="post">{% csrf_token %}
+                                <p class="">Are you sure you want to delete <strong>{{ object }}</strong> ?</p>
+                                <button type="submit" class="btn btn-info btn-round" >
+                                        <i class="material-icons">delete</i>Confirm
+                                </button>
+                                <a href="{% url 'product'%}" class="btn btn-secondary pull-right">Back</a>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

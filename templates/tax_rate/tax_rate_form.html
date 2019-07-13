@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Tax Rate" "tax_rate_list" %}
+{% breadcrumb "Tax Rate Update" "tax_rate_update" %}
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">TAX</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="taxForm" method="post">
+                            {% csrf_token %}
+                            {{form | crispy }}
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                            <a href="{% url 'tax_rate_list' %}" class="btn btn-info">Back</a>
+                            <button type="submit" form="taxForm" class="btn btn-primary ml-auto">Save</button>
+                            <button type="reset" form="taxForm" class="btn btn-rose ml-auto">Reset</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

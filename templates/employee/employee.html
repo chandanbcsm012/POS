@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block javascript %}
+<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+<script src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+<script>
+  $(document).ready(function () {
+      //datatabes js
+      $('#table_id').DataTable({
+
+          "lengthMenu": [
+              [10, 25, 50, -1],
+              [10, 25, 50, "All"]
+          ],
+          // responsive: true,
+          language: {
+              search: "_INPUT_",
+              searchPlaceholder: "Search records",
+          }
+      });
+  });
+</script>
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <div class="row">
+                            <div class="col-10">
+                                <!-- Example split danger button -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary btn-sm font-weight-bold text-primary" data-toggle="modal" data-target="#signupModal">
+                                        <i class="material-icons">add_circle</i>Employee</button>
+                                    <button type="button" class="btn btn-secondary  dropdown-toggle dropdown-toggle-split text-primary"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 justify-content-end">
+                                <form class="navbar-form ">
+                                    <div class="input-group no-border">
+                                        <input type="text" value="" class="form-control" placeholder="Search...">
+                                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                            <i class="material-icons">search</i>
+                                            <div class="ripple-container"></div>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class=" text-primary">
+                                    <th>
+                                        Task
+                                    </th>
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Country
+                                    </th>
+                                    <th>
+                                        City
+                                    </th>
+                                    <th>
+                                        Salary
+                                    </th>
+                                    <th class="text-right">Actions</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="" checked>
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            Dakota Rice
+                                        </td>
+                                        <td>
+                                            Niger
+                                        </td>
+                                        <td>
+                                            Oud-Turnhout
+                                        </td>
+                                        <td class="text-primary">
+                                                &#8377;36,738
+                                        </td>
+                                        <td class="td-actions text-right">
+                                            <button type="button" rel="tooltip" class="btn btn-info">
+                                                <i class="material-icons">visibility</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" class="btn btn-success">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" class="btn btn-danger">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                                </tbody>
+                            </table>
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Employee Form Modal -->
+<div class="modal fade bd-example-modal-lg" id="signupModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-signup modal-lg" role="document">
+          <div class="modal-content">
+            <form class="needs-validation" novalidate>
+            <div class="card card-signup card-plain">
+              <div class="modal-header">
+                <h5 class="modal-title card-title">Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <i class="material-icons">clear</i>
+                </button>
+              </div>
+              <div class="modal-body">
+                                <div class="row">
+                                  <div class="col-md-5">
+                                    <div class="form-group">
+                                      <label class="bmd-label-floating">Company </label>
+                                      <input type="text" class="form-control" >
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                      <label class="bmd-label-floating">Username</label>
+                                      <input type="text" class="form-control">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label class="bmd-label-floating">Email address</label>
+                                      <input type="email" class="form-control">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label class="bmd-label-floating">Fist Name</label>
+                                      <input type="text" class="form-control">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label class="bmd-label-floating">Last Name</label>
+                                      <input type="text" class="form-control">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <label class="bmd-label-floating">Adress</label>
+                                      <input type="text" class="form-control">
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label class="bmd-label-floating">City</label>
+                                      <input type="text" class="form-control">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label class="bmd-label-floating">Country</label>
+                                      <input type="text" class="form-control">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label class="bmd-label-floating">Postal Code</label>
+                                      <input type="text" class="form-control">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <label>About Me</label>
+                                      <div class="form-group">
+                                        <!-- <label class="bmd-label-floating"> Lamborghini Mercy</label> -->
+                                        <textarea class="form-control" rows="2"></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="clearfix"></div>
+                             
+              </div>
+              
+
+              <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+          </div>
+        </div>
+      </div>
+
+{% endblock %}

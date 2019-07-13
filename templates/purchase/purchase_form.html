@@ -1,0 +1,348 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="accordion" role="tablist">
+        <div class="card card-collapse">
+          <div class="card-header card-header-icon card-header-rose" role="tab" id="purchaseOne">
+            <div class="card-icon">
+              <i class="material-icons">language</i>
+            </div>
+            <h5>
+              <a data-toggle="collapse" class="btn btn-rose btn-link font-weight-bold" href="#purchaseCollapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Purchase Basic Details
+              </a>
+            </h5>
+          </div>
+          <div id="purchaseCollapseOne" class="collapse show" role="tabpanel" aria-labelledby="purchaseOne"
+            data-parent="#accordion">
+            <div class="card-body">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="{{form.supplier.id_for_label}}">Supplier:*</label>
+                    {{form.supplier}}
+                    {{form.supplier.errors}}
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    {{form.referance_no.label_tag}}
+                    {{form.referance_no}}
+                    {{form.referance_no.errors}}
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="{{form.date.id_for_label}}">Date:*</label>
+                    {{form.date}}
+                    {{form.date.errors}}
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="{{form.status.id_for_label}}">Purchase Status:*</label>
+                    {{form.purchase_status}}
+                    {{form.purchase_status.errors}}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="{{form.location.id_for_label}}">Business Location:*</label>
+                    {{form.location}}
+                    {{form.location.errors}}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <form method="post" id="purchaseForm" enctype="multipart/form-data">
+                    {{form.document.label_tag}}
+                    <div class="form-group form-file-upload form-file-multiple">
+                      {{form.document}}
+                      <div class="input-group">
+                        <input type="text" id="id_file_input_control" class="inputFileVisible"
+                          placeholder="Choose file">
+                        <span class="input-group-btn">
+                          <button id="id_file_input_button" type="button" class="btn btn-fab btn-round btn-primary">
+                            <i class="material-icons">attach_file</i>
+                          </button>
+                        </span>
+                      </div>
+                      {{form.document.errors}}
+                  </form>
+                </div>
+              </div>
+
+              <div class="col-md-3"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+        </div>
+      </div>
+      <div class="card card-collapse">
+        <div class="card-header card-header-icon card-header-info" role="tab" id="purchaseTow">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card-icon">
+                <i class="material-icons">language</i>
+              </div>
+              <h5>
+                <a data-toggle="collapse" class="btn btn-info btn-link font-weight-bold" href="#purchaseCollapseTow"
+                  aria-expanded="true" aria-controls="purchaseTow">
+                  Add Purchase Products
+                </a>
+              </h5>
+            </div>
+            <div class="col-md-6">
+              <div class="form-inline ml-auto float-right ">
+                <div class="form-group no-border">
+                  <input type="search" id="id_product_search_control" class="text-black" placeholder="Search Product">
+                </div>
+                <button type="button" id="id_product_search_button"
+                  class="btn btn-white btn-fab btn-fab-mini btn-round">
+                  <i class="material-icons" id="id_search_icon">search</i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="purchaseCollapseTow" class="collapse" role="tabpanel" aria-labelledby="purchaseTow"
+          data-parent="#accordion">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="id_purchase_product_table" class="table  table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-center">Image</th>
+                    <th class="text-center">Product</th>
+                    <th class="text-center">Unit Cost</th>
+                    <th class="text-center">Qty</th>
+                    <th class="text-center">Unit Selling Price</th>
+                    <th class="text-center">Amount</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tbl_body">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <h4 class="ml-auto font-weight-bold">
+            Total: Rs. <span id="table_total_amount">0</span>
+          </h4>
+        </div>
+      </div>
+      <div class="card card-collapse">
+        <div class="card-header card-header-icon card-header-primary" role="tab" id="purchaseThree">
+          <div class="card-icon">
+            <i class="material-icons">language</i>
+          </div>
+          <h5>
+            <a data-toggle="collapse" class="btn btn-primary btn-link font-weight-bold" href="#purchaseCollapseThree"
+              aria-expanded="true" aria-controls="collapseThree">
+              Purchase Details
+            </a>
+          </h5>
+        </div>
+        <div id="purchaseCollapseThree" class="collapse" role="tabpanel" aria-labelledby="purchaseThree"
+          data-parent="#accordion">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  {{form.discount_type.label_tag}}
+                  {{form.discount_type}}
+                  {{form.discount_type.errors}}
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  {{form.discount.label_tag}}
+                  {{form.discount}}
+                  {{form.discount.errors}}
+                </div>
+              </div>
+              <div class="col-md-3">
+              </div>
+              <div class="col-md-3 text-right">
+                <label>Discount Amount: <strong id="total_discount_amount">0</strong></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  {{form.tax.label_tag}}
+                  {{form.tax}}
+                  {{form.errors}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <p id="purchaseTaxDetails" class="text-right"></p>
+              </div>
+              <div class="col-md-3 text-right">
+                <label> Purchase Tax:</label>
+                <label><strong id="purchaseTax">0</strong></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  {{form.shipping_details.label_tag}}
+                  {{form.shipping_details}}
+                  {{form.shipping_details.errors}}
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  {{form.shipping_charges.label_tag}}
+                  {{form.shipping_charges}}
+                  {{form.shipping_charges.errors}}
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="{{form.additional.id_for_label}}">Addition charge:</label>
+                  {{form.additional}}
+                  {{form.additional.errors}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer card-footer-primary">
+          <h4 class="ml-auto font-weight-bold"><label>Purchase Total: <strong
+                id="grand_total_amount">0</strong></label></h4>
+        </div>
+      </div>
+      <div class="card card-collapse">
+        <div class="card-header card-header-icon card-header-danger" role="tab" id="purchaseFour">
+          <div class="card-icon">
+            <i class="material-icons">money</i>
+          </div>
+          <h5>
+            <a data-toggle="collapse" href="#purchaseCollapseFour" class="btn btn-danger btn-link font-weight-bold"
+              aria-expanded="true" aria-controls="collapseFour">
+              Purchase Payment Details
+            </a>
+
+          </h5>
+        </div>
+        <div id="purchaseCollapseFour" class="collapse" role="tabpanel" aria-labelledby="purchaseFour"
+          data-parent="#accordion">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="payAmount">Amount:*</label>
+                  <input type="number" id="payAmount" value="0">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Payment Method:*</label>
+                  <select name="PaymentMethod" id="payemntMethod">
+                    <option value="">Please Select</option>
+                    <option value="cash">Cash</option>
+                    <option value="cheque">Cheque</option>
+                    <option value="bank">Bank Transfer</option>
+                    <option value="card">Card</option>
+                    <option value="other">Other</option>
+                  </select>
+
+                </div>
+              </div>
+            </div>
+            <div class="row card-control d-none">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="">Card Number:</label>
+                  <input type="number" id="id_card_no">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="">Card Holder name:</label>
+                  <input type="text" id="id_card_holder_name">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="">Card Transaction No.</label>
+                  <input type="text" id="id_card_transaction_no">
+                </div>
+              </div>
+            </div>
+            <div class="row card-control d-none">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="">Card Type:</label>
+                  <select name="card_type" id="id_card_type">
+                    <option value="">Please select</option>
+                    <option value="creditCard">Credit Card</option>
+                    <option value="debitCard">Debit Card</option>
+                    <option value="masterCard">Master Card</option>
+                    <option value="VisaCard">Visa Card</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="">Month:</label>
+                  <input type="number" name="card_month" id="id_card_month" min="1" max="12">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="">Year:</label>
+                  <input type="number" name="card_year" id="id_card_year" min="2019">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="">Security Code:</label>
+                  <input type="number" name="card_cvv_code" id="id_card_security_code">
+                </div>
+              </div>
+            </div>
+            <div class="row cheque-control d-none">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="">Cheque No.</label>
+                  <input type="number" name="cheque_no" id="id_cheque" placeholder="Cheque No.">
+                </div>
+              </div>
+            </div>
+            <div class="row bank-control d-none">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="">Bank Account No.</label>
+                  <input type="number" name="bank_account_no" id="" placeholder="Bank Account No.">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Payemnt note:</label>
+                  <textarea name="payment_note" id="id_payment_note" cols="30" rows="10"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer card-footer-primary">
+          <a href="{% url 'purchase_list' %}" class="btn btn-white text-rose">Back</a>
+          <button class="btn btn-primary ml-auto" id="id_btn_save">Save</button>
+          <h4 class="ml-auto font-weight-bold">
+            <label>Payment Due: <strong id="due_amount">0</strong></label>
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

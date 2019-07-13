@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}POS| Sales Payments{% endblock %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb " Sale Payments" "sales_add" %}
+{% endblock %}
+{% block csscontent %}
+<!-- jquery ui css -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock%}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+
+
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title font-weight-bolder">Sale Payments Details</h4>
+            </div>
+            <div class="card-body">
+                    {% include "sale/sale_details.html" %}
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        {% include "sale/sale_payment_table.html" %}
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="mr-auto btn btn-danger" onclick="window.history.back();">Back</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{% static 'js\custom\sale_form.js' %}"></script>
+
+{% endblock %}

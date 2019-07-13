@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}POS| Update sales{% endblock %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Update Sale" "sales_add" %}
+{% endblock %}
+{% block csscontent %}
+<!-- jquery ui css -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock%}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+       {% include 'sale/sale_form_field.html'%} 
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{% static 'js\custom\sale_form.js' %}"></script>
+
+{% endblock %}

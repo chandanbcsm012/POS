@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}POS| Update Customer{% endblock %}
+{% load static %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Customer" "customer" %}
+    {% breadcrumb "Customer Update" "update-customer" %}
+{% endblock %}
+{% block javascript %}
+ <!-- Forms Validations Plugin -->
+ <script src="{% static 'js/plugins/jquery.validate.min.js' %}"></script>
+ <script src="{% static 'js\plugins\additional\pattern.js' %}"></script>
+ <script src="{% static 'js\plugins\additional\alphanumeric.js'%}"></script>
+  <!-- customer custom Validations -->
+  <script src="{% static 'js\customer-validation.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Update Customer</h4>
+                        <p class="card-category">Complete your profile</p>
+                    </div>
+                    <div class="card-body">
+                        <form class="needs-validation" novalidate autocomplete="off" method="POST">
+                            {% csrf_token %}
+                            {% include 'form.html' with form=form %}
+                            <a href="{% url 'customer' %}" class="btn btn-white text-rose pull-left">Back</a>
+                            <button id="updatebutton" type="submit" class="btn btn-primary pull-right" disabled>Save</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,216 @@
+<div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div id="accordion" role="tablist">
+                  <div class="card card-collapse">
+                    <div class="card-header card-header-icon card-header-rose" role="tab" id="salesOne">
+                      <div class="card-icon">
+                        <i class="material-icons">language</i>
+                      </div>
+                      <h5>
+                        <a data-toggle="collapse" class="btn btn-rose btn-link font-weight-bold" href="#salesCollapseOne"
+                          aria-expanded="true" aria-controls="collapseOne">
+                          sales Basic Details
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="salesCollapseOne" class="collapse show" role="tabpanel" aria-labelledby="salesOne"
+                      data-parent="#accordion">
+                      <div class="card-body">
+                        {% csrf_token %}
+                        <div class="row">
+                          <div class="col-md-3">
+                            <div class="form-group"><label for="">Customer*</label>
+                              {{form.customer}}
+                              <small class="text-danger">{{form.customer.errors}}</small>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="">Status:</label>
+                              <i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></i>
+                              {{form.sale_status}}
+                              <small class="text-danger">{{form.sale_status.errors}}</small>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                                  <label for="">Pay Term:<i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" title="" data-content="Payments to be paid for purchases/sales within the given time period. All upcoming or due payments will be displayed in dashboard - Payment Due section"></i></label>
+                                  <div class="input-group">
+                                      {{form.pay_num}}
+                                      {{form.pay_term_option}}
+                                    </div>
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group"><label for="">Date:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                          <i class="material-icons">calendar_today</i>
+                                      </span>
+                                    </div>
+                                    {{form.sale_date}}
+                                  </div>
+                                <small class="text-danger">{{form.sale_date.errors}}</small></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-3">
+                          </div>
+                          <div class="col-md-3">
+                           
+                          </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                      </div>
+                    </div>
+                  </div>
+              
+                </div>
+                <div class="card card-collapse">
+                  <div class="card-header card-header-icon card-header-info" role="tab" id="salesTow">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="card-icon">
+                          <i class="material-icons">language</i>
+                        </div>
+                        <h5>
+                          <a data-toggle="collapse" class="btn btn-info btn-link font-weight-bold" href="#salesCollapseTow"
+                            aria-expanded="true" aria-controls="salesTow">
+                            Add sales Products
+                          </a>
+                        </h5>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-inline ml-auto float-right ">
+                          <div class="form-group ">
+                            <input type="search" id="id_product_search_control" class="text-black " placeholder="Search Product">
+                          </div>
+                          <button type="button" id="id_product_search_button" class="btn btn-white btn-fab btn-fab-mini btn-round">
+                            <i class="material-icons" id="id_search_icon">search</i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="salesCollapseTow" class="collapse" role="tabpanel" aria-labelledby="salesTow" data-parent="#accordion">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table id="id_sales_product_table" class="table  table-hover">
+                          <thead class="text-primary font-weight-bold">
+                            <tr>
+                              <th class="text-center">Product</th>
+                              <th class="text-center">Qty</th>
+                              <th class="text-center">Price inc. tax</th>
+                              <th class="text-center">Subtotal</th>
+                              <th class="text-center text-danger">Remove</th>
+                            </tr>
+                          </thead>
+                          <tbody id="tbl_body" class="text-center">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <label class="ml-auto font-weight-bold">
+                      Total: Rs.<span id="table_total_amount">0</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="card card-collapse">
+                  <div class="card-header card-header-icon card-header-primary" role="tab" id="salesThree">
+                    <div class="card-icon">
+                      <i class="material-icons">language</i>
+                    </div>
+                    <h5>
+                      <a data-toggle="collapse" class="btn btn-primary btn-link font-weight-bold" href="#salesCollapseThree"
+                        aria-expanded="true" aria-controls="collapseThree">
+                        sales Details
+                      </a>
+                    </h5>
+                  </div>
+                  <div id="salesCollapseThree" class="collapse" role="tabpanel" aria-labelledby="salesThree" data-parent="#accordion">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="">Discount Type & Amount:</label>
+                                <div class="input-group">
+                                    {{form.discount_type}}
+                                    {{form.discount}}
+                                  </div>
+                            </div>           
+                        </div>
+                        <div class="col-md-1">
+                          
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-3 text-right">
+                          <label>Discount Amount:(-) <strong id="total_discount_amount">0</strong></label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group"><label for="">Tax:</label>{{form.tax}}
+                            <small class="text-danger">{{form.tax.errors}}</small></div>
+                        </div>
+                        <div class="col-md-6">
+                          <p id="salesTaxDetails" class="text-right">
+              
+                          </p>
+                        </div>
+                        <div class="col-md-3 text-right">
+                          <label> Order Tax:(+) </label>
+                          <label><strong id="salesTax">0</strong></label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group"><label for="">Shipping Details:</label>{{form.shipping_details}}
+                            <small class="text-danger">{{form.shipping_details.errors}}</small></div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group"><label for="">Shipping Charges:</label>
+                            {{form.shipping_charges}}<small class="text-danger">{{form.shipping_charges.errors}}</small></div>
+                          
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer card-footer-primary">
+                    <h4 class="ml-auto font-weight-bold"><label>Total Payable: <strong id="grand_total_amount">0</strong></label></h4>
+                  </div>
+                </div>
+                <div class="card card-collapse">
+                  <div class="card-header card-header-icon card-header-danger" role="tab" id="salesFour">
+                    <div class="card-icon">
+                      <i class="material-icons">payment</i>
+                    </div>
+                    <h5>
+                      <a data-toggle="collapse" href="#salesCollapseFour" class="btn btn-danger btn-link font-weight-bold"
+                        aria-expanded="true" aria-controls="collapseFour">
+                        sales Payment Details
+                      </a>
+                    </h5>
+                  </div>
+                  <div id="salesCollapseFour" class="collapse" role="tabpanel" aria-labelledby="salesFour" data-parent="#accordion">
+                    <div class="card-body">
+                      {% include "sale\includes\partial_payment_form.html" %}
+                    </div>
+                  </div>
+                  <div class="card-footer card-footer-primary">
+                    <button class="btn btn-danger" onclick="window.history.back();">Back</button>
+                    <button class="btn btn-primary mx-auto" id="id_btn_save">Save</button>
+                    <h4 class="ml-auto font-weight-bold">
+                      <label>Payment Due:<strong id="due_amount">0</strong></label>
+                    </h4>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>

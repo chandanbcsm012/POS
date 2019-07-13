@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Tax Report" "t_r" %}
+{% endblock %}
+{% block csscontent%}
+<link rel="stylesheet" href="{% static 'css/datatable.custom.css' %}">
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/plugins/printThis.js' %}"></script>
+<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+<script src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        //datatabes js
+        $('#table_id').DataTable({
+
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            // responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+        $(".print_btn").click(function () {
+            let doc = $(document).find(".card-body");
+            doc.printThis({
+                importCSS: true,
+                importStyle: true,
+                loadCSS: "{% static 'css/material-dashboard.css' %}",
+            });
+        });
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{message.tags}}!</strong>{{message}}
+                    <button type="button" class="close" purchase-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% else %}
+                <div class="alert alert-{{message.tags}} alert-dismissible fade show">
+                    <strong>{{message.tags}}!</strong>
+                    {{message}}
+                    <button type="button" class="close" purchase-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header card-header-text card-header-primary">
+                              <div class="card-text">
+                                <h4 class="card-title">Input Tax
+                                    <i class="fa fa-info-circle" data-html="true" data-toggle="popover" data-trigger="hover" title="" data-content="Total tax collected for sales within the selected time period."></i>
+                                </h4>
+                              </div>
+                            </div>
+                            <div class="card-body">
+                                    <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <tbody>
+                                                        {% if saleTaxDetails.gst %}
+                                                    <tr>
+                                                        <th>GST</th>
+                                                        <td>{{saleTaxDetails.gst}}</td>
+                                                    </tr>
+                                                    {% endif %}
+
+                                                    {% if saleTaxDetails.cgst %}
+                                                    <tr>
+                                                        <th>CGST</th>
+                                                        <td>{{saleTaxDetails.cgst}}</td>
+                                                    </tr>
+                                                    {% endif %}
+                                                    {% if saleTaxDetails.igst %}
+                                                    <tr>
+                                                        <th>IGST</th>
+                                                        <td>{{saleTaxDetails.igst|floatformat:2}}</td>
+                                                    </tr>
+                                                    {% endif %}
+                                                    {% if saleTaxDetails.sgst %}
+                                                    <tr>
+                                                        <th>SGST</th>
+                                                        <td>{{saleTaxDetails.sgst|floatformat:2}}</td>
+                                                    </tr>
+                                                    {% endif %}
+                                                    {% if saleTaxDetails.other %}
+                                                    <tr>
+                                                        <th>Other Type Tax</th>
+                                                        <td>{{saleTaxDetails.other|floatformat:2}}</td>
+                                                    </tr>
+                                                    {% endif %}
+                                                        <tr>
+                                                            <th>Total tax:</th>
+                                                            <td>{{saleTax|floatformat:2}}</td>
+                                                        </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                            </div>
+                        </div>
+            </div>
+            <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-text card-header-primary">
+                          <div class="card-text">
+                            <h4 class="card-title">Output Tax 
+                                <i class="fa fa-info-circle"  data-toggle="popover"  data-content="Total tax paid towards purchases for the selected time period." data-html="true" data-trigger="hover"></i>
+                            </h4>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                                <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                    {% if purchaseTaxDetails.gst %}
+                                                    <tr>
+                                                        <th>GST</th>
+                                                        <td>{{purchaseTaxDetails.gst|floatformat:2}}</td>
+                                                    </tr>
+                                                    {% endif %}
+
+                                                    {% if purchaseTaxDetails.cgst %}
+                                                    <tr>
+                                                        <th>CGST</th>
+                                                        <td>{{purchaseTaxDetails.cgst|floatformat:2}}</td>
+                                                    </tr>
+                                                    {% endif %}
+
+                                                    {% if purchaseTaxDetails.igst %}
+                                                    <tr>
+                                                        <th>IGST</th>
+                                                        <td>{{purchaseTaxDetails.igst|floatformat:2}}</td>
+                                                    </tr>
+                                                    {% endif %}
+
+                                                    {% if purchaseTaxDetails.sgst %}
+                                                    <tr>
+                                                        <th>SGST</th>
+                                                        <td>{{purchaseTaxDetails.sgst|floatformat:2}}</td>
+                                                    </tr>
+                                                    {% endif %}
+                                                    {% if purchaseTaxDetails.other %}
+                                                    <tr>
+                                                        <th>Other Type Tax</th>
+                                                        <td>{{purchaseTaxDetails.other|floatformat:2}}</td>
+                                                    </tr>
+                                                    {% endif %}
+                                                    <tr>
+                                                        <th>Total tax:</th>
+                                                        <td>{{purchaseTax|floatformat:2}}</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                        </div>
+                    </div>
+                </div>            
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Overall (Input - Output)
+                            <i class="fa fa-info-circle" data-html="true" data-toggle="popover" data-trigger="hover" title=""
+                             data-content="Difference between total tax collected and total tax paid within the selected time period."></i>
+                        </h4>
+                        
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-muted">
+                            Output Tax - Input Tax: 
+                            <span class="tax_diff text-rose">{{saleTax|sub:purchaseTax |floatformat:2}}</span>
+                        </h3>
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

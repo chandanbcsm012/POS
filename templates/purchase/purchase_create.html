@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}POS| Update purchase{% endblock %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Add purchase" "purchase_add" %}
+{% endblock %}
+{% block csscontent %}
+<!-- jquery ui css -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- Latest compiled and minified CSS -->
+
+<style>
+  input.file {
+    opacity: 0;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .purchase_input {
+    width: 90%;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .purchase_input:hover {
+    width: 90%;
+    border: 2px solid gainsboro;
+    text-align: right;
+  }
+
+  .product_amount {
+    font-weight: bold;
+  }
+</style>
+{% endblock%}
+{% block content %}
+<div class="content">
+  {% include 'purchase/purchase_form.html' %}
+</div>
+
+{% endblock %}
+{% block javascript %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{% static 'js/custom/purchase_form.js'%}"></script>
+{% endblock %}

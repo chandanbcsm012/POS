@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Sale List" "sale_list" %}
+{% breadcrumb "Sale Details" "sale_view" %}
+{% endblock %}
+{% block csscontent%}
+<link rel="stylesheet" href="{% static 'css/datatable.custom.css' %}">
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/plugins/printThis.js' %}"></script>
+<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+<script src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        //datatabes js
+        $('#table_id').DataTable({
+
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            // responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+
+        $(".print_btn").click(function(){
+            let doc = $(document).find(".card-body");
+            doc.printThis({
+                importCSS: true,
+                importStyle: true,
+                loadCSS: "{% static 'css/material-dashboard.css' %}",
+            });
+        });
+    });
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{message.tags}}!</strong>{{message}}
+                    <button type="button" class="close" sale-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% else %}
+                <div class="alert alert-{{message.tags}} alert-dismissible fade show">
+                    <strong>{{message.tags}}!</strong>
+                    {{message}}
+                    <button type="button" class="close" sale-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="chard-header card-header-primary">
+                        <h4 class="card-title">sale View</h4>
+                    </div>
+                    <div class="card-body" >
+                        <div>
+                            {% include 'sale/sale_details.html'%}
+                        </div>
+                        <div class="table-responsive">
+                            <table id="" class="table table-striped table-hover">
+                                <thead class="text-primary font-weight-bold">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Unit Price
+                                    </th>
+                                    
+                                    <th>
+                                        Quantity
+                                    </th>
+                                    <th class="text-right">
+                                        Total Amount
+                                    </th>
+
+                                </thead>
+                                <tbody>
+                                    {% for p in products %}
+                                    <tr>
+                                        <td>
+                                            {{p.id}}
+                                        </td>
+                                        <td>
+                                            {{p.product_name}}
+                                        </td>
+                                       
+                                        <td>
+                                            {{p.price}}
+                                        </td>
+                                        <td class="text-primary">
+                                            {{p.product_quantity}}
+                                        </td>
+                                        <td class="text-right">
+                                            {{p.subtotal}}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h4>Payment info:</h4>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                {% include "sale/sale_payment_table.html" %}
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+
+                                        <tbody>
+                                            <tr>
+                                                <th>Net Total Amount: </th>
+                                                <td></td>
+                                                <td><span class="display_currency pull-right"
+                                                        data-currency_symbol="true">{{sale.net_amount}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Discount:</th>
+                                                <td>
+                                                    <b>(-)</b>
+                                                </td>
+                                                <td>
+                                                    <span class="display_currency pull-right"
+                                                        data-currency_symbol="true">{{sale.discount}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>sale Tax:</th>
+                                                <td><b>(+)</b></td>
+                                                <td class="text-right">
+                                                    {{sale.tax_total}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Shipping charges:</th>
+                                                <td><b>(+)</b></td>
+                                                <td><span class="display_currency pull-right">{{sale.shipping_charges}}</span></td>
+                                            </tr>
+                                           
+                                            <tr>
+                                                <th>Sale Total:</th>
+                                                <td></td>
+                                                <td><span class="display_currency pull-right"
+                                                        data-currency_symbol="true">$ 235,656.00</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-danger btn-back" onclick="window.history.back();">Back</button>
+                        <button class="btn btn-info print_btn">Print</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

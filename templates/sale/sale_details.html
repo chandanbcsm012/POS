@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-4">
+        <div><label>Customer Name : </label>{{sale.customer}} </div>
+        <div><label for="">Phone:</label>{{sale.customer.phone}}</div>
+        <div>{{sale.customer.city}}, {{sale.customer.address}}</div>
+        <div><label for=""></label></div>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div><label>Sale Status:</label> {{sale.sale_status}}</div>
+        <div><label>Payment Status:{{payments.payment_status|last}}</label></div>
+    </div>
+</div>

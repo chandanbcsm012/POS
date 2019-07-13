@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-5">
+            {% if uploaded_file_url %}
+            <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+          {% endif %}
+        
+        <div class="input-group">
+            <input type="file" name="image"  class="form-control inputFileHidden" placeholder="Choose Image">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-fab btn-round btn-primary">
+                    <i class="material-icons">attach_file</i>
+                </button>
+            </span>
+        </div>
+
+    </div>
+</div>  

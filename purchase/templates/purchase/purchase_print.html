@@ -1,0 +1,118 @@
+<div class="modal-header">
+    <h5 class="modal-title card-title">Purchase Invoice Preview</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <i class="material-icons">clear</i>
+    </button>
+</div>
+<div class="modal-body" id="purchase_invoice">
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>
+                    <address>
+                        <label>Supplier Name:-</label> {{supplier.first_name}} {{supplier.last_name}}<br>
+                        <label>Supplier Business Name:-</label> {{supplier.business_name}}<br>
+                        <label>Supplier Address:-</label> {{supplier.address}}
+                        <label>Supplier GST:-</label> {{supplier.gst_number}}
+                    </address>
+                </td>
+                <td>
+                    <address>
+                        <label>Business:-</label> Awsome Shope<br>
+                        <label>Location:-</label> {{purchase.location}} <br>
+                        <label for=""></label>
+                    </address>
+                </td>
+                <td>
+                    <address>
+                        <label>Referance No:-</label> {{purchase.referance_no}}<br>
+                        <label>Purchase Date:-</label> {{purchase.date}} <br>
+                        <label>Purchase Status:- </label> {{purchase.purchase_status}} <br>
+                        <label>Payment Status:- </label> {{payment.payment_status}}
+                    </address>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <table class="table table-striped" id="product_list">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Unit Cost</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in product %}
+                    <tr>
+                        <td>{{p.name}}</td>
+                        <td>{{p.quantity}}</td>
+                        <td>{{p.unit_cost}}</td>
+                        <td>{{p.total_cost}}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><label for="">Net Total:- </label></td>
+                        <td align="right" colspan="2">{{purchase.net_amount}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Discount Amount:- </label> </td>
+                        <td align="right" colspan="2">{{purchase.discount}}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Purchase Tax:- </label></td>
+                        <td>
+
+                            {{purchase.tax_details|upper}}             
+                           
+
+                        </td>
+                        <td align="right">{{purchase.tax_total}}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Shipping Charges:- </label></td>
+                        <td align="right" colspan="2">{{purchase.shipping_charges}}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Addition Charge:- </label></td>
+                        <td align="right" colspan="2">{{purchase.additional}}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Purchase Total:- </label></td>
+                        <td align="right" colspan="2">{{purchase.total_purchase_amount}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Paid Amount:- </label> </td>
+                        <td align="right" colspan="2">{{payment.paid_amount}} </td>
+                    </tr>
+                    <tr>
+                        <td><label>Due Amount:- </label> </td>
+                        <td align="right" colspan="2">{{payment.due_amount}} </td>
+                    </tr>
+                    <tr>
+                        <td><label>Shipping Details:- </label> </td>
+                        <td colspan="2">{{purchase.shipping_details}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger print-btn" data-dismiss="modal">Print</button>
+</div>

@@ -1,0 +1,59 @@
+<div class="modal-header">
+    <h5 class="modal-title card-title">Purchase Invoice Preview</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <i class="material-icons">clear</i>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-4">
+            Supplier:<br>
+            <label>Name:</label>{{purchase.supplier.first_name}} {{purchase.supplier.last_name}} <br>
+            <label>Address:</label> {{purchase.supplier.address}}
+        </div>
+        <div class="col-md-4">
+            Business:
+        </div>
+        <div class="col-md-4">
+            <label>Referance No:</label> {{purchase.referance_no}} <br>
+            <label>Date:</label>{{purchase.date}} <br>
+            <label for="">Purchase Status:</label> {{purchase.purchase_status}} <br>
+            <label for="">Payment Status:</label> {% with list|last as last %}
+            {{ last.key }}
+        {% endwith %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 table-responsive">
+            <table id="table_id" class="table table-hover">
+                <thead class=" text-primary font-weight-bold">
+                    <tr>
+                        <th>Date Time</th>
+
+                        <th>Amount</th>
+                        <th>Payment Method</th>
+                        <th>Payment Note</th>
+                        <th>Actions</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    {% for p in payments %}
+                    <tr>
+                        <td>{{p.payment_date_time}}</td>
+                        <td>{{p.paid_amount}}</td>
+                        <td>{{p.payemnt_method}}</td>
+                        <td>{{p.payment_note}}</td>
+                        <td class="td-actions">
+                            <a href="#" class="btn btn-success"><i class="material-icons">visibility</i></a>
+                            <a href="#" class="btn btn-danger"><i class="material-icons">close</i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+</div>

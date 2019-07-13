@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Tax Rate" "tax_rate_list" %}
+{% breadcrumb "Tax Rate Delete" "tax_rate_delete" %}
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">TAX</h4>
+                    </div>
+                    <div class="card-body">
+                            <form id="deleteForm" method="post">{% csrf_token %}
+                                    <p>Are you sure you want to delete "{{ object }}"?</p>
+                            </form>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" form="deleteForm" class="btn btn-primary">Confirm</button>
+                        <a href="{% url 'tax_rate_list' %}" class="btn btn-secondary ml-auto text-primary">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

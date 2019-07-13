@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}POS| Delete Product{% endblock %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Product Type List" "product-type" %}
+{% breadcrumb "Product Type Delete" "delete-product-type" %}
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header card-header-icon card-header-rose">
+                    <div class="card-icon">
+                            <i class="material-icons">delete</i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form method="post">{% csrf_token %}
+                                <p class="">Are you sure you want to delete <strong>{{ object }}</strong> ?</p>
+                                <button type="submit"  class="btn btn-info btn-round" >
+                                    <i class="material-icons">delete</i> Delete
+                            </button>
+                                <a  class="btn btn-secondary btn-round pull-right" href="{% url 'product-type' %}" >
+                                        Back
+                                </a>
+    
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

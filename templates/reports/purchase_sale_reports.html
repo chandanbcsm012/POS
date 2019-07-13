@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Purchase & Sales Report" "p_s_r" %}
+{% endblock %}
+{% block csscontent%}
+<link rel="stylesheet" href="{% static 'css/datatable.custom.css' %}">
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/plugins/printThis.js' %}"></script>
+<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+<script src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        //datatabes js
+        $('#table_id').DataTable({
+
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            // responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+
+        $(".print_btn").click(function () {
+            let doc = $(document).find(".card-body");
+            doc.printThis({
+                importCSS: true,
+                importStyle: true,
+                loadCSS: "{% static 'css/material-dashboard.css' %}",
+            });
+        });
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{message.tags}}!</strong>{{message}}
+                    <button type="button" class="close" purchase-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% else %}
+                <div class="alert alert-{{message.tags}} alert-dismissible fade show">
+                    <strong>{{message.tags}}!</strong>
+                    {{message}}
+                    <button type="button" class="close" purchase-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header card-header-text card-header-primary">
+                              <div class="card-text">
+                                <h4 class="card-title">Purchases</h4>
+                              </div>
+                            </div>
+                            <div class="card-body">
+                                    <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <tbody>
+                                                        <tr>
+                                                            <th>Total Purchase:</th>
+                                                            <td>R$ {{purchaseAmount | floatformat:2}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Purchase Total tax:	</th>
+                                                            <td>R$ {{purchaseTax | floatformat:2}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Purchase Including tax:</th>
+                                                            <td>R$ {{ purchaseAmount|add:purchaseTax | floatformat:2}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Purchase Due:
+                                                                <i class="fa fa-info-circle text-info hover-q no-print " aria-hidden="true"  data-toggle="popover" data-content="Total unpaid amount for purchases." data-html="true" data-trigger="hover"></i>
+                                                            </th>
+                                                            <td>{{purchaseDue|floatformat:2}}</td>
+                                                        </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                            </div>
+                        </div>
+            </div>
+            <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-text card-header-primary">
+                          <div class="card-text">
+                            <h4 class="card-title">Sales</h4>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                                <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                    <tr>
+                                                        <th>Total Sale:</th>
+                                                        <td>R$ {{saleAmount |floatformat:2 }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Sale total tax:</th>
+                                                        <td>R$ {{saleTax | floatformat:2}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Sale Including tax:</th>
+                                                        <td>R$ {{saleAmount|add:saleTax |floatformat:2 }}</td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <th>Sale Due:
+                                                            <i class="fa fa-info-circle text-info hover-q no-print " aria-hidden="true"  data-toggle="popover" data-content="Total amount to be received from sales" data-html="true" data-trigger="hover"></i>
+                                                        </th>
+                                                        <td>R$ {{salesDue|floatformat:2}}</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                        </div>
+                    </div>
+                </div>            
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-rose">
+                        <h4 class="card-title">Overall (Sale - Sale Return - Purchase - Purchase Return) 
+                            <i class="fa fa-info-circle" data-html="true" data-toggle="popover" data-trigger="hover" title=""  data-content="-ve value = Amount to pay <br> +ve Value = Amount to receive"></i></h4>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-muted">
+                            Sale - Purchase: 
+                            <span class="sell_minus_purchase text-danger">{{saleAmount |sub:purchaseAmount | floatformat:2}}</span>
+                        </h3>
+                        <h3 class="text-muted">
+                            Due amount: 
+                            <span class="difference_due text-danger">$ -256,006.00</span>
+                        </h3>
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
